@@ -32,6 +32,15 @@ DISTILBERT_CONFIG = {
     "warmup_ratio": 0.1,
 }
 
+DEBERTA_CONFIG = {
+    "model_name": "microsoft/deberta-v3-base",
+    "max_length": 128,
+    "batch_size": 16,
+    "epochs": 3,
+    "learning_rate": 2e-5,
+    "warmup_ratio": 0.1,
+}
+
 QUANTITY_VS_QUALITY = {
     "noisy_size": 50000,
     "noisy_noise_level": 0.3,
