@@ -7,6 +7,8 @@ def confidence_filter(texts, labels, model):
     Removes samples where the model's confidence is below the threshold.
     Low confidence usually means the sample is ambiguous or mislabeled.
     Keeps only the samples the model feels sure about.
+    If the threshold is too aggressive and would remove everything,
+    falls back to keeping the top 50% most confident samples instead.
     """
     proba = model.predict_proba(texts)
     max_confidence = np.max(proba, axis=1)
@@ -14,12 +16,16 @@ def confidence_filter(texts, labels, model):
 
     keep = [i for i, conf in enumerate(max_confidence) if conf >= threshold]
 
+    if len(keep) == 0:
+        cutoff = np.median(max_confidence)
+        keep = [i for i, conf in enumerate(max_confidence) if conf >= cutoff]
+
     return _subset(texts, labels, keep)
 
 
 def loss_filter(texts, labels, model):
     """
-    Removes the highest-loss samples — the ones the model struggles with most.
+    Removes the highest-loss samples -- the ones the model struggles with most.
     High loss strongly correlates with mislabeled examples.
     Cuts everything above the configured loss percentile.
     """
@@ -33,7 +39,7 @@ def loss_filter(texts, labels, model):
 
 def heuristic_filter(texts, labels):
     """
-    No model needed here — just removes obvious garbage.
+    No model needed here -- just removes obvious garbage.
     Drops duplicates and samples that are too short to carry any signal.
     """
     min_tokens = CLEANING_CONFIG["min_token_length"]
@@ -56,6 +62,7 @@ def apply_all(texts, labels, model):
     Runs all three strategies in sequence.
     Heuristic first since it doesn't need the model and is fast.
     Then confidence and loss filtering on what's left.
+    Each step checks that enough samples remain before continuing.
     Returns cleaned texts and labels plus a small summary of what got removed.
     """
     original_size = len(texts)
@@ -63,10 +70,12 @@ def apply_all(texts, labels, model):
     texts, labels = heuristic_filter(texts, labels)
     after_heuristic = len(texts)
 
-    texts, labels = confidence_filter(texts, labels, model)
+    if len(texts) > 0:
+        texts, labels = confidence_filter(texts, labels, model)
     after_confidence = len(texts)
 
-    texts, labels = loss_filter(texts, labels, model)
+    if len(texts) > 0:
+        texts, labels = loss_filter(texts, labels, model)
     after_loss = len(texts)
 
     summary = {

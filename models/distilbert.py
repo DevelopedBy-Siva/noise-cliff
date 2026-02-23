@@ -10,6 +10,10 @@ from torch.optim import AdamW
 from tqdm import tqdm
 from config import DISTILBERT_CONFIG
 
+import logging
+
+logging.getLogger("transformers.modeling_utils").setLevel(logging.ERROR)
+
 
 class SST2Dataset(Dataset):
     def __init__(self, encodings, labels):

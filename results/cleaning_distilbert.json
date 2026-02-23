@@ -1,0 +1,28 @@
+{
+  "0.2": {
+    "noisy_baseline": {
+      "accuracy_mean": 0.9143,
+      "accuracy_std": 0.0,
+      "f1_mean": 0.9233,
+      "f1_std": 0.0
+    },
+    "confidence": {
+      "accuracy_mean": 0.8916,
+      "accuracy_std": 0.0,
+      "f1_mean": 0.8987,
+      "f1_std": 0.0
+    },
+    "loss": {
+      "accuracy_mean": 0.9171,
+      "accuracy_std": 0.0,
+      "f1_mean": 0.926,
+      "f1_std": 0.0
+    },
+    "heuristic": {
+      "accuracy_mean": 0.9079,
+      "accuracy_std": 0.0,
+      "f1_mean": 0.9174,
+      "f1_std": 0.0
+    }
+  }
+}

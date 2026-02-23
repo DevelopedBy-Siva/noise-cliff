@@ -1,0 +1,14 @@
+{
+  "0.0": {
+    "accuracy_mean": 0.9038,
+    "accuracy_std": 0.0,
+    "f1_mean": 0.9149,
+    "f1_std": 0.0
+  },
+  "0.2": {
+    "accuracy_mean": 0.8661,
+    "accuracy_std": 0.0,
+    "f1_mean": 0.8811,
+    "f1_std": 0.0
+  }
+}
