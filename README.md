@@ -1,4 +1,4 @@
-# data-quality-bench
+# noise-tolerance-benchmark
 
 How much label noise can an LLM safety classifier tolerate before it becomes unreliable? And does cleaning your annotation pipeline actually help, or does it make things worse?
 
