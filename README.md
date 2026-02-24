@@ -214,9 +214,6 @@ data-quality-bench/
 │   └── find_tipping_point.py             -- exact noise threshold with std
 ├── scripts/
 │   └── save_models.py                     -- pretrain and save for Streamlit
-├── streamlit_app/
-│   ├── app.py                             -- interactive demo
-│   └── inference.py                       -- load saved model, predict
 ├── notebooks/
 │   └── plots.ipynb                        -- all visualizations
 └── results/                               -- JSON results and PNG plots
